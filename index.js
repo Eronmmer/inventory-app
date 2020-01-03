@@ -13,7 +13,7 @@ connectDb();
 app.use(logger);
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
-// The above two I think work as body parsers
+// The above two work as body parsers
 
 // Badass welcome message 😈
 app.get("/", (req, res) => {
