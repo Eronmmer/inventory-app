@@ -28,6 +28,7 @@ app.use("/api/sales", require("./routes/sales"));
 app.use("/api/suppliers", require("./routes/suppliers"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api/purchases", require("./routes/purchases"));
+app.use("/api/allUsers", require("./routes/allUsers"));
 
 // 404. For the sake of fun haha
 app.use((req, res, next) => {

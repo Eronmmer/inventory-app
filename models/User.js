@@ -27,6 +27,9 @@ const UserSchema = mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  memberSince: {
+    type: String,
   }
 });
 

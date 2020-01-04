@@ -5,12 +5,20 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const authenticator = require("../middleware/authenticator");
 
 // Route --------- GET api/auth
 // Description --- Get logged in user(You're already logged in. You're in a protected route. You just want to be verified that you're actually logged in)
 // Access -------- Private
-router.get("/", (req, res) => {
-  res.send("Get logged in user");
+router.get("/", authenticator, async (req, res) => {
+  try {
+    const user = await User.findById( req.user.id ).select( "-password" )
+    
+    res.send(user)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send("Server Error")
+  }
 });
 
 // Route --------- POST api/auth
@@ -22,8 +30,10 @@ router.post(
     check("email", "Please include a valid email address")
       .optional({ checkFalsy: true })
       .isEmail(),
-    check("password", "Your password must be at least 5 characters long")
-      .isLength({ min: 5 }),
+    check(
+      "password",
+      "Your password must be at least 5 characters long"
+    ).isLength({ min: 5 }),
     check(
       "username",
       "Your username is definitely more than four characters. :-)"
@@ -79,7 +89,7 @@ router.post(
         },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, msg: "Logged in successfully." });
         }
       );
     } catch (err) {}

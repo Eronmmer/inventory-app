@@ -48,4 +48,6 @@ user.password = await bcrypt.hash(password, salt)
 
 - Go to auth and enable logging in and making it possible to do GET requests whenever a protected route is hit. Validate email or username and password, check if details sent match with what's in the database, then sign with jwt to receive a token.
 
-- Now that you can get tokens on logging in and registering, create middlewares that will use will validate this tokens whenever a protected route is hit.
+- Now that you can get tokens on logging in and registering, create middlewares that will use will validate this tokens whenever a protected route is hit. This middleware  will check if there is a valid token in the request header. If there's one, the user id will be exposed. This id will now be used to perform private operations.
+
+- create GET, POST, PUT and delete methods to your different private routes

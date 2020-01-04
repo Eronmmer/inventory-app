@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const ProductSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users"
+  },
   name: {
     type: String,
     required: true
@@ -14,8 +18,11 @@ const ProductSchema = mongoose.Schema({
     required: true
   },
   numberAvailable: {
-    type: Number,
-    required: true
+    type: Number
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 

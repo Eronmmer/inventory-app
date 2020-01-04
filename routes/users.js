@@ -58,6 +58,11 @@ router.post(
           .json({ msg: "User already exists!. Choose another username" });
       }
 
+      // const memberSince = await date.slice( 0, 10 ).split( "-" ).join( "/" );
+      // const shit = await User.findOne({email: "johndoe@gmail.com"})
+      // console.log( shit.date )
+      // return
+
       user = new User({
         name,
         email,
@@ -76,6 +81,15 @@ router.post(
 
       // save user to database
       await user.save();
+
+     
+      // user = await User.findOne({ email });
+      // console.log(user._id, {...user, memberSince: user.date})
+      // console.log(user.date.toString())
+      user = await User.findByIdAndUpdate(
+        user._id, { $set: { memberSince: user.date } },
+        { new: true }
+      );
 
       // create jsonwebtoken
       const payload = {
@@ -97,7 +111,7 @@ router.post(
         }
       );
     } catch (err) {
-      console.log(err);
+      console.error(err.message);
       res.status(500).send("Server Error");
     }
   }
