@@ -14,12 +14,16 @@ const CustomerSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  dateJoined: {
+    type: String,
+    default: new Date().toDateString()
+  },
   history: [
     {
       name: String,
       dateBought: {
-        type: Date,
-        default: Date.now
+        type: String
+        // default: new Date()
       },
       numberBought: Number
     }

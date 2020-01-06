@@ -86,10 +86,10 @@ router.post(
       // user = await User.findOne({ email });
       // console.log(user._id, {...user, memberSince: user.date})
       // console.log(user.date.toString())
-      user = await User.findByIdAndUpdate(
-        user._id, { $set: { memberSince: user.date } },
-        { new: true }
-      );
+      // user = await User.findByIdAndUpdate(
+      //   user._id, { $set: { memberSince: user.date } },
+      //   { new: true }
+      // );
 
       // create jsonwebtoken
       const payload = {

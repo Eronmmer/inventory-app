@@ -35,7 +35,7 @@ app.use((req, res, next) => {
   res
     .status(404)
     .send(
-      "Sorry douchebag, I can't find nothing here. Do well to find your way home."
+      "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a know route."
     );
 });
 

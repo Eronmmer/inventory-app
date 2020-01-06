@@ -30,6 +30,7 @@ const UserSchema = mongoose.Schema({
   },
   memberSince: {
     type: String,
+    default: new Date().toDateString()
   }
 });
 

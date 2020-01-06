@@ -10,20 +10,19 @@ const SupplierSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  address: {
-    type: String,
-    required: true
-  },
   date: {
     type: Date,
     default: Date.now
+  },
+  dateJoined: {
+    type: String,
+    default: new Date().toDateString()
   },
   history: [
     {
       name: String,
       dateSold: {
-        type: Date,
-        default: Date.now
+        type: String
       },
       numberSold: Number
     }

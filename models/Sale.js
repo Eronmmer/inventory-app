@@ -15,12 +15,11 @@ const SaleSchema = mongoose.Schema({
   },
   history: [
     {
+      soldTo: String,
       dateSold: {
-        type: Date,
-        default: Date.now
+        type: String
       },
       numberSold: Number,
-      soldTo: String
     }
   ]
 });

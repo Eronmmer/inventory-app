@@ -16,8 +16,7 @@ const PurchaseSchema = mongoose.Schema({
   history: [
     {
       dateBought: {
-        type: Date,
-        default: Date.now
+        type: String
       },
       numberBought: Number,
       boughtFrom: String
