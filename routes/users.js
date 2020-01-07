@@ -5,6 +5,8 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const authenticator = require("../middleware/authenticator");
+
 // Route --------- POST api/users
 // Description --- Register users
 // Access -------- Public
@@ -67,7 +69,6 @@ router.post(
         name,
         email,
         username,
-        email,
         password,
         company
       });
@@ -81,15 +82,6 @@ router.post(
 
       // save user to database
       await user.save();
-
-     
-      // user = await User.findOne({ email });
-      // console.log(user._id, {...user, memberSince: user.date})
-      // console.log(user.date.toString())
-      // user = await User.findByIdAndUpdate(
-      //   user._id, { $set: { memberSince: user.date } },
-      //   { new: true }
-      // );
 
       // create jsonwebtoken
       const payload = {
@@ -117,5 +109,118 @@ router.post(
   }
 );
 
+// Edit a user's details
+router.put(
+  "/:userId",
+  [
+    authenticator,
+    [
+      check("email", "Please include a valid email address")
+        .optional({ checkFalsy: true })
+        .isEmail(),
+      check("password", "Your password must be at least 5 characters long")
+        .optional({ checkFalsy: true })
+        .isLength({ min: 5 }),
+      check("username", "Your username must be more than four characters.")
+        .optional({ checkFalsy: true })
+        .isLength({ min: 4 })
+        .isLength({ min: 5 }),
+      check("name", "Your name must be at least five characters.")
+        .optional({ checkFalsy: true })
+        .isLength({ min: 4 })
+        .isLength({ min: 5 }),
+      check("company", "You company name must be at least 4 characters")
+        .optional({ checkFalsy: true })
+        .isLength({ min: 4 })
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(401).json({ errors: errors.array() });
+    }
+    try {
+      let user = await User.findById(req.params.userId);
+      if (!user) {
+        return res.status(404).json({ msg: "User does not exist!!" });
+      }
+
+      if (user._id.toString() !== req.user.id) {
+        return res.status(401).json({ msg: "Not authorized" });
+      }
+
+      const { name, email, password, username, company } = req.body;
+      let userField = {};
+      if (name) {
+        userField.name = name;
+      }
+      if (email) {
+        userField.email = email;
+      }
+      if (password) {
+        // hash password and save
+        const salt = await bcrypt.genSalt(10);
+        userField.password = await bcrypt.hash(password, salt);
+      }
+      if (username) {
+        userField.username = username;
+      }
+      if (company) {
+        userField.company = company;
+      }
+
+      user = await User.findByIdAndUpdate(
+        req.params.userId,
+        { $set: userField },
+        { new: true }
+      );
+
+      // create new jsonwebtoken
+      const payload = {
+        user: {
+          id: user.id
+        }
+      };
+
+      jwt.sign(
+        payload,
+        config.get("jwtSecret"),
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ msg: "Successfully updated!", token });
+        }
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+// Route -------- DELETE /api/auth
+// access -------  Private
+// Desc -------- Delete a user's account
+router.delete("/:userId", authenticator, async (req, res) => {
+  try {
+    let user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ msg: "User does not exist!!" });
+    }
+
+    if (user._id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" });
+    }
+
+    user = await User.findByIdAndDelete(req.params.userId);
+
+    res.json({ msg: "Account successfully deleted", user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // Later, make it possible to delete a user and edit one's details
+// Update,👆 done 😁
 module.exports = router;

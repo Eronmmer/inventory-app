@@ -12,12 +12,12 @@ const authenticator = require("../middleware/authenticator");
 // Access -------- Private
 router.get("/", authenticator, async (req, res) => {
   try {
-    const user = await User.findById( req.user.id ).select( "-password" )
-    
-    res.send(user)
+    const user = await User.findById(req.user.id).select("-password");
+
+    res.send(user);
   } catch (err) {
-    console.error(err.message)
-    res.status(500).send("Server Error")
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 
@@ -96,5 +96,4 @@ router.post(
   }
 );
 
-// Later make it possible to delete a user and edit their details
 module.exports = router;
