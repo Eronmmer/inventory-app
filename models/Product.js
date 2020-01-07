@@ -17,7 +17,7 @@ const ProductSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  numberAvailable: {
+  amountAvailable: {
     type: Number
   },
   date: {

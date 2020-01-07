@@ -10,7 +10,7 @@ const authenticator = require("../middleware/authenticator");
 router.get("/", authenticator, async (req, res) => {
   try {
     const sales = await Sale.find({ user: req.user.id })
-      .select(["-user", "-_v"])
+      .select(["-user", "-__v"])
       .sort({ date: -1 });
     res.json({ sales });
   } catch (err) {
