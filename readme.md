@@ -1,4 +1,19 @@
-# Steps. PS: I wrote this for me not you 😈. Peruse at your own peril.
+# This is the API I built for an app I wanna build with React.
+
+## Features
+
+> Please keep in mind that this project is a work in progress
+
+- Authentication
+- CRUD functionality on various routes(auth, users, allUsers, purchases, products, customers, suppliers, sales). I"ll probably add more later
+- Users can update their account info(yet to implement email verification but that would be later)
+
+
+This is basically an inventory app that business owners can use to keep detailed track of their activities and other stuff. The frontend app(which I"m lazy to start working on) will do a better job at helping you understand what the idea is. Stay tuned. 
+
+Incase you manage to go through the code and find one or two things that can be corrected, do well to make a PR 
+
+## Steps. PS: I wrote these below for myself not you 😈. Peruse at your own peril.
 
 - Start server
 - Create routes
@@ -48,6 +63,9 @@ user.password = await bcrypt.hash(password, salt)
 
 - Go to auth and enable logging in and making it possible to do GET requests whenever a protected route is hit. Validate email or username and password, check if details sent match with what's in the database, then sign with jwt to receive a token.
 
-- Now that you can get tokens on logging in and registering, create middlewares that will use will validate this tokens whenever a protected route is hit. This middleware  will check if there is a valid token in the request header. If there's one, the user id will be exposed. This id will now be used to perform private operations.
+- Now that you can get tokens on logging in and registering, create middlewares that will use will validate these tokens whenever a protected route is hit. This middleware  will check if there is a valid token in the request header. If there's one, the user id will be exposed. This id will now be used to perform private operations.
 
 - create GET, POST, PUT and delete methods to your different private routes
+
+
+E go be ✌✌
