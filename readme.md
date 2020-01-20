@@ -29,7 +29,7 @@ A React/Redux/Styled-components powered frontend app that sends request to and r
 
 - `/api/allUsers`: This GET route serves json of all registers users as an array of objects(when parsed). Fields include `memberSince`, `username`, `email`, `company`
 
-- `/api/auth`: This route does two things. The GET route authenticates a logged in user(private route and requires a token) by using the token to check for the user. Thereby returning the currently logged in user. The other POST route is used for logging in a user and authenticating them. Fields required: one of of `email` or `username` and `password`.
+- `/api/auth`: This route does two things. The GET method authenticates a logged in user(private route and requires a token) by using the token to check for the user. Thereby returning the currently logged in user. The POST method is used for logging in a user and authenticating them. Fields required: one of of `email` or `username` and `password`.
 
 - `/api/customers`: This has GET, POST, PUT and DEL methods. They perform CRUD functionalities for an authenticated user's customers.
 
@@ -47,4 +47,4 @@ A React/Redux/Styled-components powered frontend app that sends request to and r
 
 -----------------
 
-This is the finished version of [yarapi](https://github.com/Eronmmer/yarapi)
+This project is the finished version of [yarapi](https://github.com/Eronmmer/yarapi)
