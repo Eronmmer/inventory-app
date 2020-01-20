@@ -12,9 +12,9 @@ const authenticator = require("../middleware/authenticator");
 // Access -------- Private
 router.get("/", authenticator, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id).select(["-password", "-_id", "-date", "-__v"]);
 
-    res.send(user);
+    res.json({msg: "User authenticated", user});
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

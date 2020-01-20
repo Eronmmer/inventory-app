@@ -14,8 +14,7 @@ router.get("/", async (req, res) => {
       "-__v",
       "-date"
     ] ).sort( { date: -1 } );
-    console.log(allUsers[0].id)
-    res.json({ allUsers });
+    res.json( allUsers );
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

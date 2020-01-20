@@ -150,6 +150,21 @@ router.put(
       }
 
       const { name, email, password, username, company } = req.body;
+
+      // check if email or username is already taken
+      const checkUsername = await User.findOne({username})
+      const checkEmail = await User.findOne({email})
+
+      if ( checkUsername && checkEmail ) {
+        return res.status(400).json({msg: "Username and Email are already taken"})
+      }
+      if ( checkUsername ) {
+        return res.status( 400 ).json( { msg: "Username is already taken" } )
+      }
+      if ( checkEmail) {
+        return res.status(400).json({msg: "Email is already taken"})
+      }
+
       let userField = {};
       if (name) {
         userField.name = name;
@@ -214,7 +229,7 @@ router.delete("/:userId", authenticator, async (req, res) => {
 
     user = await User.findByIdAndDelete(req.params.userId);
 
-    res.json({ msg: "Account successfully deleted", user });
+    res.json({ msg: "Account successfully deleted" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
