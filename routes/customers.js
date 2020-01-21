@@ -70,6 +70,7 @@ router.post(
       }
 
       customer = await newCustomer.save();
+      
       res.json({ customer, msg: "Customer successfully added." });
     } catch (err) {
       console.error(err.message);

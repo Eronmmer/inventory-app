@@ -14,7 +14,7 @@ const SupplierSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  dateJoined: {
+  memberSince: {
     type: String,
     default: new Date().toDateString()
   },
