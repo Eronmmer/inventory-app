@@ -14,6 +14,38 @@ const instance = axios.create({
 
 instance.defaults.headers.common["inventory-app-token"] = null;
 
+// axios utility functions. This is the function that will be called in the various routes
+const callAxios = async (method, url, data) => {
+  let response;
+  switch (method) {
+    case "PUT":
+      response = await instance.put(url, data);
+      break;
+    case "POST":
+      response = await instance.post(url, data);
+      break;
+
+    case "GET":
+      response = await instance.get(url, data);
+      break;
+
+    case "DELETE":
+      response = await instance.delete(url, data);
+      break;
+
+    default:
+      break;
+  }
+};
+
+// function to get token from header
+// function getToken (reqHeader){
+//   instance.defaults.headers.common["inventory-app-token"] = reqHeader(
+//     "inventory-app-token"
+//   );
+// };
+
+
 // Route --------- GET api/purchases
 // Description --- Get a user's purchases
 // Access -------- Private
@@ -50,10 +82,22 @@ router.post(
 
     const { name, history, costPrice, sellingPrice } = req.body;
     try {
-      const findName = await Purchase.findOne({ name });
-      const findUser = await Purchase.findOne({ user: req.user.id });
+      let findName = await Purchase.findOne({ name });
+      let findUser = await Purchase.findOne({ user: req.user.id });
       if (findName && findUser) {
-        return res.status(400).json({ msg: "Purchase already exists!!" });
+        // since purchase already exists, make PUT request to update history
+        findName = await Purchase.find({name})
+        findUser = await Purchase.find( { user: req.user.id } )
+        let purchaseArr = findName.filter(name => name.user.toString() === req.user.id)
+        let requiredPurchase = findUser.find( elem => elem.name == purchaseArr[ 0 ].name )
+        let id = requiredPurchase._id
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        callAxios("PUT", `/purchases/${id}`, {
+          history
+        } );
+        return res.status(200).json({ msg: "Purchase already exists but has just being updated" });
       }
 
       let newPurchase;
@@ -82,14 +126,26 @@ router.post(
       // Once a new purchase has been made, check if product already exists, if not, make a request to add it.
 
       // create new product
-      let newProduct = new Product({
+      // let newProduct = new Product({
+      //   name,
+      //   costPrice,
+      //   sellingPrice,
+      //   amountAvailable: history[history.length - 1].numberBought,
+      //   user: req.user.id
+      // });
+      // let product = await newProduct.save();
+      // instance.defaults.headers.common["inventory-app-token"] = req.header(
+      //   "inventory-app-token"
+      // );
+      instance.defaults.headers.common["inventory-app-token"] = req.header(
+        "inventory-app-token"
+      );
+      callAxios("POST", "/products", {
         name,
         costPrice,
         sellingPrice,
-        amountAvailable: history[history.length - 1].numberBought,
-        user: req.user.id
+        amountAvailable: history[history.length - 1].numberBought
       });
-      let product = await newProduct.save();
 
       // Check if supplier already exists. If not, add him if yes. edit their history
       // const suppliersRes = await instance.get("/suppliers")
@@ -109,41 +165,61 @@ router.post(
             numberSold: history[history.length - 1].numberBought
           }
         ];
-        let newSupplier;
+        // let newSupplier;
 
-        supplierHistory.forEach(elem => {
-          elem.dateSold = new Date().toDateString();
-        });
-        newSupplier = new Supplier({
+        // supplierHistory.forEach(elem => {
+        //   elem.dateSold = new Date().toDateString();
+        // });
+        // newSupplier = new Supplier({
+        //   name: history[history.length - 1].boughtFrom,
+        //   history: supplierHistory,
+        //   user: req.user.id
+        // });
+
+        // const saveSupplier = await newSupplier.save();
+        // instance.defaults.headers.common["inventory-app-token"] = req.header(
+        //   "inventory-app-token"
+        // );
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        callAxios("POST", "/suppliers", {
           name: history[history.length - 1].boughtFrom,
-          history: supplierHistory,
-          user: req.user.id
+          history: supplierHistory
         });
-
-        const saveSupplier = await newSupplier.save();
       } else {
         const checkSupplier = await Supplier.find({
           name: history[history.length - 1].boughtFrom
         });
         let id;
-        checkSupplier.forEach(obj=> {if(obj.user.toString() === req.user.id) {id = obj._id}})
+        checkSupplier.forEach(obj => {
+          if (obj.user.toString() === req.user.id) {
+            id = obj._id;
+          }
+        });
         // supplier exists. So, just edit their info
+        // instance.defaults.headers.common["inventory-app-token"] = req.header(
+        //   "inventory-app-token"
+        // );
         instance.defaults.headers.common["inventory-app-token"] = req.header(
           "inventory-app-token"
         );
-        const editRes = await instance.put(`/suppliers/${id}`, {
+        // const editRes = await instance.put(`/suppliers/${id}`, {
+        //   history: [
+        //     { name: name, numberSold: history[history.length - 1].numberBought }
+        //   ]
+        // } );
+        callAxios("PUT", `/suppliers/${id}`, {
           history: [
-            { name: name ,
-             numberSold: history[history.length - 1].numberBought }
+            { name: name, numberSold: history[history.length - 1].numberBought }
           ]
-        } );
+        });
         // console.log(editRes)
       }
 
       res.json({
-        msg: "Purchase successfully added and corresponding product",
-        purchase,
-        product
+        msg: "Purchase successfully added",
+        purchase
       });
     } catch (err) {
       console.error(err.message);
@@ -194,6 +270,60 @@ router.put("/:purchaseId", authenticator, async (req, res) => {
       { $set: purchaseField },
       { new: true }
     );
+
+    // update amountAvailable in corresponding products and supplier's history
+    // console.log(purchase.name)
+    const findProduct = await Product.find({ name: purchase.name });
+    let requiredProduct;
+    findProduct.forEach(item => {
+      if (item.user.toString() === req.user.id) {
+        requiredProduct = item;
+      }
+    });
+    // console.log(requiredProduct);
+
+    instance.defaults.headers.common["inventory-app-token"] = req.header(
+      "inventory-app-token"
+    );
+    callAxios( "PUT", `/products/${requiredProduct._id}`, {
+      amountAvailable: requiredProduct.amountAvailable + history[history.length - 1].numberBought
+    } )
+    
+    const findSupplier = await Supplier.find( { name: history[ history.length - 1 ].boughtFrom } )
+    let requiredSupplier;
+    if ( findSupplier ) {
+      findSupplier.forEach(item => {
+        if (item.user.toString() === req.user.id) {
+          requiredSupplier = item;
+        }
+      });
+    }
+    if ( requiredSupplier == undefined ) {
+      instance.defaults.headers.common["inventory-app-token"] = req.header(
+        "inventory-app-token"
+      );
+      callAxios( "POST", "/suppliers", {
+        name: history[history.length - 1].boughtFrom,
+        history: [
+          {
+            name: purchase.name,
+            numberSold: history[history.length - 1].numberBought
+          }
+        ]
+      });
+    } else {
+      instance.defaults.headers.common["inventory-app-token"] = req.header(
+        "inventory-app-token"
+      );
+      callAxios("PUT", `/suppliers/${requiredSupplier._id}`, {
+        history: [
+          {
+            name: purchase.name,
+            numberSold: history[history.length - 1].numberBought
+          }
+        ]
+      });
+    }
 
     res.json({ msg: "Purchase successfully updated", purchase });
   } catch (err) {
