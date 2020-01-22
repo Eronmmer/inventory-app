@@ -101,12 +101,12 @@ router.put("/:productId", authenticator, async (req, res) => {
       productField.amountAvailable = amountAvailable;
     }
 
-    product = await Product.findByIdAndUpdate(
-      req.params.productId,
+    product = await Product.findOneAndUpdate(
+      {_id: req.params.productId},
       {
         $set: productField
       },
-      { new: true }
+      // { new: true }
     );
 
     res.json({ msg: "Product successfully updated", product });

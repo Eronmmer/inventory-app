@@ -2,7 +2,17 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const Sale = require("../models/Sale");
+const Product = require("../models/Product")
+const Customer = require("../models/Customer")
 const authenticator = require("../middleware/authenticator");
+
+// axios instance
+const instance = require("../utilities/axiosInstance")
+
+instance.defaults.headers.common["inventory-app-token"] = null;
+
+// axios utility functions. This is the function that will be called in the various routes
+const callAxios = require("../utilities/callAxios")
 
 // Route --------- GET api/sales
 // Description --- Get a user's sales
@@ -42,9 +52,30 @@ router.post(
 
     try {
       let saleId = await Sale.findOne({ name });
-      let saleUser = await Sale.findOne({ user: req.user.id });
+      let saleUser = await Sale.findOne( { user: req.user.id } );
+      // make sure product about to be sold actually exists
+      let findProductName = await Product.find({ name });
+      let productArr = findProductName.filter(elem => elem.user.toString() === req.user.id)
+      if ( productArr.length === 0 ) {
+        return res.status(400).send({msg: "This Product doesn't exist. Maybe you should consider purchasing it first"})
+      }
+      if ( productArr[ 0 ].amountAvailable < history[ history.length - 1 ].numberSold ) {
+        return res.status(400).send({msg: "Insufficient products left."})
+      }
       if (saleId && saleUser) {
-        return res.status(400).json({ msg: "Sale already exists" });
+        // since sale already exists, make PUT request
+        saleId = await Sale.find({name})
+        saleUser = await Sale.find( { user: req.user.id } )
+        let saleArr = saleId.filter(elem => elem.user.toString() === req.user.id)
+        let requiredSale = saleUser.find( elem => elem.name == saleArr[ 0 ].name )
+        let id = requiredSale._id
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        callAxios("PUT", `/sales/${id}`, {
+          history
+        } );
+        return res.status(200).json({ msg: "Sale already exists but has just being updated" });
       }
 
       let newSale;
@@ -65,6 +96,53 @@ router.post(
       }
 
       const sale = await newSale.save();
+      
+      // after making sale, make necessary changes to product and customer
+      instance.defaults.headers.common["inventory-app-token"] = req.header(
+        "inventory-app-token"
+      );
+      let id = productArr[ 0 ]._id
+      let productAmountLeft = productArr[ 0 ].amountAvailable
+      let productAmountSold = history[ history.length - 1 ].numberSold
+      let finalAmountAvailable;
+      if ( productAmountLeft === productAmountSold ) {
+        callAxios("DELETE", `/products/${id}`);
+      } else {
+        finalAmountAvailable = (productAmountLeft - productAmountSold) 
+        callAxios("PUT", `/products/${id}`, {
+          amountAvailable: finalAmountAvailable
+        });
+      }
+      // check if customer exists. If yes, update. If not, create
+      const checkCustomer = await Customer.find( { name: history[ history.length - 1 ].soldTo } )
+      const customerArr = checkCustomer.filter( elem => elem.user.toString() === req.user.id )
+      if ( customerArr.length === 0 ) {
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        callAxios("POST", "/customers", {
+          name: history[history.length - 1].soldTo,
+          history: [
+            {
+              name,
+              numberBought: history[history.length - 1].numberSold
+            }
+          ]
+        });
+      } else {
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        let customerId = customerArr[0]._id
+        callAxios("PUT", `/customers/${customerId}`, {
+          history: [
+            {
+              name,
+              numberBought: history[history.length - 1].numberSold
+            }
+          ]
+        });
+      }
       res.json({ sale, msg: "Sale added" });
     } catch (err) {
       console.error(err.message);
@@ -107,6 +185,35 @@ router.put("/:saleId", authenticator, async (req, res) => {
     }
     // console.log(saleField)
 
+    const findProduct = await Product.find({ name: sale.name });
+    let requiredProduct;
+    findProduct.forEach(item => {
+      if (item.user.toString() === req.user.id) {
+        requiredProduct = item;
+      }
+    });
+    if ( requiredProduct === undefined ) {
+      return res.status(400).send({msg: "Product does not exists"})
+    }
+    if ( history[ history.length - 1 ].numberSold > requiredProduct.amountAvailable ) {
+      return res.status(400).send({ msg: "Insufficient products left" });
+    }
+
+    instance.defaults.headers.common["inventory-app-token"] = req.header(
+      "inventory-app-token"
+    );
+    let id = requiredProduct._id;
+    let productAmountLeft = requiredProduct.amountAvailable;
+    let productAmountSold = history[history.length - 1].numberSold;
+    let finalAmountAvailable;
+    if (productAmountLeft === productAmountSold) {
+      callAxios("DELETE", `/products/${id}`);
+    } else {
+      finalAmountAvailable = productAmountLeft - productAmountSold;
+      callAxios("PUT", `/products/${id}`, {
+        amountAvailable: finalAmountAvailable
+      });
+    }
     sale = await Sale.findByIdAndUpdate(
       req.params.saleId,
       {
@@ -114,6 +221,40 @@ router.put("/:saleId", authenticator, async (req, res) => {
       },
       { new: true }
     );
+
+    // update customer
+      const checkCustomer = await Customer.find( { name: history[ history.length - 1 ].soldTo } )
+      const customerArr = checkCustomer.filter( elem => elem.user.toString() === req.user.id )
+      if ( customerArr.length === 0 ) {
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        callAxios("POST", "/customers", {
+          name: history[history.length - 1].soldTo,
+          history: [
+            {
+              name,
+              numberBought: history[history.length - 1].numberSold
+            }
+          ]
+        });
+      } else {
+        instance.defaults.headers.common["inventory-app-token"] = req.header(
+          "inventory-app-token"
+        );
+        let customerId = customerArr[0]._id
+        callAxios("PUT", `/customers/${customerId}`, {
+          history: [
+            {
+              name: sale.name,
+              numberBought: history[history.length - 1].numberSold
+            }
+          ]
+        });
+      }
+    
+    // console.log(requiredProduct);
+
 
     res.json({ sale, msg: "Sale successfully updated" });
   } catch (err) {

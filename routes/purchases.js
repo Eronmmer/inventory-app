@@ -8,35 +8,12 @@ const authenticator = require("../middleware/authenticator");
 const axios = require("axios");
 
 // axios instance
-const instance = axios.create({
-  baseURL: "http://localhost:3500/api/"
-});
+const instance = require("../utilities/axiosInstance")
 
 instance.defaults.headers.common["inventory-app-token"] = null;
 
 // axios utility functions. This is the function that will be called in the various routes
-const callAxios = async (method, url, data) => {
-  let response;
-  switch (method) {
-    case "PUT":
-      response = await instance.put(url, data);
-      break;
-    case "POST":
-      response = await instance.post(url, data);
-      break;
-
-    case "GET":
-      response = await instance.get(url, data);
-      break;
-
-    case "DELETE":
-      response = await instance.delete(url, data);
-      break;
-
-    default:
-      break;
-  }
-};
+const callAxios = require("../utilities/callAxios")
 
 // function to get token from header
 // function getToken (reqHeader){
