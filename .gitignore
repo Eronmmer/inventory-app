@@ -1,5 +1,9 @@
 
 todo.md
+myFunnyTemplates/
+testAllUserReducer.js
+testAllUserAction.js
+TestAllUsers.js
 # dependencies
 node_modules/
 /.pnp

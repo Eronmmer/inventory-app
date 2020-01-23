@@ -1,0 +1,24 @@
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const USER_LOADED = "USER_LOADED";
+export const AUTH_ERROR = "AUTH_ERROR";
+export const GET_CUSTOMERS = "GET_CUSTOMERS";
+export const GET_SUPPLIERS = "GET_SUPPLIERS";
+export const GET_SALES = "GET_SALES";
+export const GET_PURCHASES = "GET_PURCHASES";
+export const ADD_CUSTOMERS = "ADD_CUSTOMERS";
+export const ADD_SUPPLIERS = "ADD_SUPPLIERS";
+export const ADD_SALES = "GET_SALES";
+export const ADD_PURCHASES = "ADD_PURCHASES";
+export const SEARCH_CUSTOMERS = "SEARCH_CUSTOMERS";
+export const SEARCH_SUPPLIERS = "SEARCH_SUPPLIERS";
+export const SEARCH_SALES = "SEARCH_SALES";
+export const SEARCH_PURCHASES = "SEARCH_PURCHASES";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+
+export const ALL_USERS = "ALL_USERS";
+export const ALL_USERS_ERROR = "ALL_USERS_ERROR"
