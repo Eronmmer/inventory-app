@@ -1,4 +1,14 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+const scaleAnimation = keyframes`
+    50% {
+      transform: scale(1.02);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+`;
 
 const MainComponent = styled.main`
   .grey-para {
@@ -16,8 +26,9 @@ const MainComponent = styled.main`
   padding: 0 2rem;
 
   .first-section {
+    padding-top: 4rem;
     .triangle-icon {
-      margin-top: -4rem;
+      /* margin-top: -4rem; */
       font-size: 10rem;
       margin: 0 auto;
       text-align: center;
@@ -27,7 +38,7 @@ const MainComponent = styled.main`
     .box-paragraphs {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 5rem;
+      margin-top: 3.5rem;
       margin-bottom: 2.5rem;
 
       p {
@@ -114,8 +125,15 @@ const MainComponent = styled.main`
       background: #f86150;
       color: white;
       font-size: 1.2rem;
+      font-weight: 500;
       text-decoration: none;
-      
+      /* backface-visibility: hidden; */
+      transition: ease-in-out transform 0.5s;
+      animation: ${scaleAnimation} 1s ease-in-out infinite;
+
+      &:hover {
+        animation: none;
+      }
     }
   }
 `;

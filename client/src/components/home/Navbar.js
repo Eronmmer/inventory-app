@@ -1,7 +1,6 @@
 import React from "react";
 import NavbarComponent from "../../StyledComponents/home/Navbar";
 import { Link } from "react-router-dom";
-import lineChart from "../layout/svgs/line-chart.svg";
 
 const Navbar = () => {
   return (

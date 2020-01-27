@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/authAction";
 import Spinner from "../layout/Spinner";
+import {Redirect
+ } from "react-router-dom"
 
-const Products = props => {
-  const { loadUser, user, isAuthenticated, authLoading } = props;
+const Settings = props => {
+  const {isAuthenticated, loadUser, user, authLoading } = props;
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [] );
   useEffect(() => {
     if (!isAuthenticated && !authLoading) {
       props.history.push("/");
@@ -27,11 +29,11 @@ const Products = props => {
       <div>
         Welcome!
         {!authLoading && user !== null && user.name}
-        user's products
+        user's Settings
         <button>logout</button>
       </div>
     );
-  }
+  } 
 };
 
 const mapDispatchToProps = {
@@ -44,4 +46,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

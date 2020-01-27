@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
 const NavbarComponent = styled.nav`
+  position: fixed;
+  width: 100%;
   background: #3672a4;
   padding: 0.45rem;
   color: white;
@@ -23,7 +25,6 @@ const NavbarComponent = styled.nav`
           font-size: 2.2rem;
           font-weight: 500;
           position: relative;
-          display: flex;
           align-items: center;
           font-weight: bold;
         }
