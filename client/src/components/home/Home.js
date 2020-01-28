@@ -15,7 +15,7 @@ const Home = props => {
   }, [isAuthenticated, props.history]);
   return (
     <HomeComponent>
-      <Navbar />
+      <Navbar public />
       <Main />
     </HomeComponent>
   );

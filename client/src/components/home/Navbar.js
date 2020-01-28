@@ -1,28 +1,59 @@
 import React from "react";
 import NavbarComponent from "../../StyledComponents/home/Navbar";
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux'
+import {logout} from '../../actions/authAction'
 
-const Navbar = () => {
+const Navbar = ( props ) => {
+  const {logout} = props
+  const publicLInksStyle = {
+    display: props.private ? "none" : "inline"
+  }
+
+  const handleLogout = () => {
+    logout();
+  }
   return (
-    <NavbarComponent>
+    <NavbarComponent
+      style={{
+        boxShadow: props.dashboard
+          ? "none"
+          : "0px 6px 5px 0px rgba(128, 128, 128, 1)"
+      }}
+    >
       <ul>
         <div className="left">
           <li className="brand-name">
-            <Link to="/">
+            <Link to={props.private ? "/dashboard" : "/"}>
               Fotiá<span className="triangle-icon">▲</span>
               {/* <img className="line-chart" src={lineChart} alt="line chart" /> */}
             </Link>
           </li>
         </div>
-        <div className="right">
-          <li className="about">
-            <Link to="/about">About</Link>
-          </li>
-          <li className="login">
+        <div
+          style={{
+            display: props.notfound ? "none" : "flex"
+          }}
+          className="right"
+        >
+          <li style={publicLInksStyle} className="login">
             <Link to="/login">Log In</Link>
           </li>
-          <li className="register">
+          <li style={publicLInksStyle} className="register">
             <Link to="/register">Sign Up</Link>
+          </li>
+          <li
+            style={{ display: props.public ? "none" : "inline" }}
+            className="settings"
+          >
+            <a href="/settings">Settings</a>
+          </li>
+          <li
+            onClick={handleLogout}
+            style={{ display: props.public ? "none" : "inline" }}
+            className="logout"
+          >
+            <a href="#">Logout</a>
           </li>
         </div>
       </ul>
@@ -30,4 +61,8 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapDispatchToProps = {
+  logout
+}
+
+export default connect(null, mapDispatchToProps)(Navbar);

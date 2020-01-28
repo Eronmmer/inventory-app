@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/authAction";
 import Spinner from "../layout/Spinner";
+import Navbar from "../home/Navbar";
+import CustomersComponent from "../../StyledComponents/private/Customers";
 
 const Customers = props => {
   const {loadUser, user,isAuthenticated, authLoading } = props;
@@ -24,12 +26,15 @@ const Customers = props => {
     );
   } else {
     return (
-      <div>
-        Welcome!
+      <>
+        <Navbar private />
+        <CustomersComponent>
+          {/* Welcome!
         {!authLoading && user !== null && user.name}
         user's customers
-        <button>logout</button>
-      </div>
+        <button>logout</button> */}
+        </CustomersComponent>
+      </>
     );
   }
 }

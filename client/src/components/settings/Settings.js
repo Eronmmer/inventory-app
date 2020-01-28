@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/authAction";
 import Spinner from "../layout/Spinner";
-import {Redirect
- } from "react-router-dom"
+import Navbar from '../home/Navbar'
+import SettingsComponent from '../../StyledComponents/private/Settings'
 
 const Settings = props => {
   const {isAuthenticated, loadUser, user, authLoading } = props;
@@ -26,12 +26,15 @@ const Settings = props => {
     );
   } else {
     return (
-      <div>
-        Welcome!
+      <>
+        <Navbar private />
+        <SettingsComponent>
+          {/* Welcome!
         {!authLoading && user !== null && user.name}
         user's Settings
-        <button>logout</button>
-      </div>
+        <button>logout</button> */}
+        </SettingsComponent>
+      </>
     );
   } 
 };

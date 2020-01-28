@@ -159,7 +159,7 @@ const Register = ( props ) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar public />
       <RegisterComponent>
         <div>
           {alert.map(elem => (

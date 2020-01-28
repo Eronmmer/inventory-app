@@ -6,7 +6,8 @@ const NavbarComponent = styled.nav`
   background: #3672a4;
   padding: 0.45rem;
   color: white;
-  box-shadow: 0px 6px 5px 0px rgba(128, 128, 128, 1);
+  box-shadow: 0px 6px 5px 0px rgba(128, 128, 128, 1);  
+        
   ul {
     list-style: none;
     margin: 0;
@@ -45,7 +46,7 @@ const NavbarComponent = styled.nav`
 
     .right {
       display: flex;
-      flex-basis: 30%;
+      flex-basis: 20%;
       justify-content: space-around;
 
       .about,
@@ -53,10 +54,31 @@ const NavbarComponent = styled.nav`
       .register {
         font-size: 1.1rem;
         transition: ease 0.4s;
-        /* backface-visibility: inherit; */
 
+        ${props =>
+          props.private &&
+          css`
+            display: none;
+          `}
         &:hover {
           transform: scale(1.045);
+        }
+      }
+
+      .logout,
+      .settings {
+        font-size: 1.1rem;
+        transition: ease 0.4s;
+        font-weight: bold;
+
+        &:hover {
+          transform: scale(1.045)
+        }
+
+        ${props => props.public &&
+          css`
+            display: none;
+          `
         }
       }
 

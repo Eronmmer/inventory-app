@@ -11,7 +11,6 @@ import {
 import Home from "./components/home/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import About from "./components/pages/About";
 import Company from "./components/pages/Company";
 import Spinner from "./components/layout/Spinner";
 import PrivateRoute from "./routing/PrivateRoute";
@@ -34,7 +33,6 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/about" component={About} />
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />

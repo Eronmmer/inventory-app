@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/authAction";
 import Spinner from "../layout/Spinner";
+import Navbar from "../home/Navbar";
+import SuppliersComponent from "../../StyledComponents/private/Suppliers";
 
 const Suppliers = props => {
-  const { loadUser,isAuthenticated, user, authLoading } = props;
+  const { loadUser, isAuthenticated, user, authLoading } = props;
   useEffect(() => {
     loadUser();
   }, []);
@@ -24,12 +26,15 @@ const Suppliers = props => {
     );
   } else {
     return (
-      <div>
-        Welcome!
+      <>
+        <Navbar private />
+        <SuppliersComponent>
+          {/* Welcome!
         {!authLoading && user !== null && user.name}
         user's Suppliers
-        <button>logout</button>
-      </div>
+        <button>logout</button> */}
+        </SuppliersComponent>
+      </>
     );
   }
 };

@@ -176,7 +176,7 @@ router.put("/:saleId", authenticator, async (req, res) => {
 
     if (history) {
       saleField.history.forEach(elem => {
-        elem.dateSold = new Date();
+        elem.dateSold = new Date().toDateString();
       });
       const updatedHistory = [...sale.history];
       updatedHistory.push(...history);

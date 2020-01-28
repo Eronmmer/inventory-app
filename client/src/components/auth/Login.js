@@ -97,7 +97,7 @@ const Login = (props) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar public />
       <LoginComponent>
         <div>
           {alert.map(elem => (
