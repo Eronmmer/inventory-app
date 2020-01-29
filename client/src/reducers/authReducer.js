@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
 
       }
     case AUTH_ERROR:
-      console.log( "autherror" )
+      // console.log( "autherror" )
       localStorage.removeItem("inventoryAppToken");
       return {
         ...state,
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
        localStorage.removeItem("inventoryAppToken");
       newAlert = [...state.alert];
       newAlert.push(action.alert);
-      console.log(action.payload)
+      // console.log(action.payload)
       return {
         ...state,
         isAuthenticated: false,
@@ -66,7 +66,7 @@ export default (state = initialState, action) => {
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("inventoryAppToken", action.payload.token)
-      console.log(action.payload);
+      // console.log(action.payload);
       newAlert = [...state.alert];
       newAlert.push(action.alert);
       return {
@@ -89,7 +89,7 @@ export default (state = initialState, action) => {
         authLoading: false
       };
     case USER_LOADED: 
-      console.log(action.payload)
+      // console.log(action.payload)
       return {
         ...state,
         isAuthenticated: true,

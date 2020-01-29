@@ -1,17 +1,27 @@
-import { AUTH_ERROR } from "../actions/types";
+import {
+  GET_PRODUCTS_DASHBOARD,
+  PRODUCTS_ERROR_DASHBOARD
+} from "../actions/types";
 
 const initialState = {
-  a: true,
-  b: false
+  productsDashboard: null,
+  loadingProducts: false,
+  error: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_ERROR:
+    case GET_PRODUCTS_DASHBOARD:
+      console.log(action.payload);
       return {
         ...state,
-        a: false,
-        b: true
+        productsDashboard: action.payload
+          .slice(0, 5)
+      };
+    case PRODUCTS_ERROR_DASHBOARD:
+      console.log(action.payload);
+      return {
+        ...state
       };
 
     default:

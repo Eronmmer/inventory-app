@@ -6,6 +6,7 @@ import productsReducer from "./productsReducer"
 import purchasesReducer from "./purchasesReducer"
 import suppliersReducer from "./suppliersReducer"
 import testAllUserReducer from "./testAllUserReducer"
+import salesReducer from './salesReducer'
 
 export default combineReducers( {
   alert: alertReducer,
@@ -14,5 +15,6 @@ export default combineReducers( {
   products: productsReducer,
   purchases: purchasesReducer,
   suppliers: suppliersReducer,
-  allUsers: testAllUserReducer
+  allUsers: testAllUserReducer,
+  sales: salesReducer
 })

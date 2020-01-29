@@ -58,6 +58,20 @@ const DashboardComponent = styled.div`
         text-align: center;
         margin: 0 auto;
       }
+
+      .your-recent-content:not(:last-child) {
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .recent-content-bold {
+        margin-right: .6rem;
+      }
+
+      .no-recent {
+        text-align: center;
+        
+      }
     }
   }
 `;
