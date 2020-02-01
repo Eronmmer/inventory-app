@@ -9,6 +9,10 @@ A MERN stack application that business owners(retailers, wholesalers etc) can us
 A React/Redux/Styled-components powered frontend app that sends request to and receives data from an Express/MongoDB powered Backend API.
 <!-- Explain further -->
 
+![](https://res.cloudinary.com/djksghat4/image/upload/v1580556822/inventory-app/fotia2.png)
+
+![](https://res.cloudinary.com/djksghat4/image/upload/v1580556822/inventory-app/fotia.png)
+
 ## Features
 
 - Authentication
@@ -30,6 +34,10 @@ A React/Redux/Styled-components powered frontend app that sends request to and r
 - Display weekly and monthly Sales and purchases on the dashboard along with total profit made during the period.
 
 - Users should be able to edit their details(change password, name, email, username, company): There's already endpoints for this on the BE but they've not been implemented on the FE
+
+- Remove some lorem ipsums that are still on the landing page.
+
+- Deploy to Heroku or Zeit Now
 
 ## API docs
 
