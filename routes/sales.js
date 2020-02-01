@@ -206,8 +206,22 @@ router.put("/:saleId", authenticator, async (req, res) => {
     let productAmountLeft = requiredProduct.amountAvailable;
     let productAmountSold = history[history.length - 1].numberSold;
     let finalAmountAvailable;
-    if (productAmountLeft === productAmountSold) {
-      callAxios("DELETE", `/products/${id}`);
+    console.log(productAmountLeft, productAmountSold)
+    if (productAmountLeft == productAmountSold) {
+      // callAxios("DELETE", `/products/${id}`);
+      console.log(id)
+      let product = await Product.findById(id);
+      // if (!product) {
+      //   return res.status(404).json({ msg: "Product does not exist!" });
+      // }
+
+      // if (product.user.toString() !== req.user.id) {
+      //   return res.status(401).json({ msg: "Not authorized" });
+      // }
+
+      product = await Product.findByIdAndDelete(id);
+
+
     } else {
       finalAmountAvailable = productAmountLeft - productAmountSold;
       callAxios("PUT", `/products/${id}`, {

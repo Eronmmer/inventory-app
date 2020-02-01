@@ -2,19 +2,28 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/authAction";
 import Spinner from "../layout/Spinner";
-import Navbar from '../home/Navbar'
-import SettingsComponent from '../../StyledComponents/private/Settings'
+import Navbar from "../home/Navbar";
+import SettingsComponent from "../../StyledComponents/private/Settings";
+import { logout } from "../../actions/authAction";
+import callAxios from "../../utils/callAxios";
 
 const Settings = props => {
-  const {isAuthenticated, loadUser, user, authLoading } = props;
+  const { isAuthenticated, loadUser, user, logout, authLoading } = props;
   useEffect(() => {
     loadUser();
-  }, [] );
+  }, []);
   useEffect(() => {
     if (!isAuthenticated && !authLoading) {
       props.history.push("/");
     }
   }, [props.history, isAuthenticated, authLoading]);
+
+  const deleteAccount = async () => {
+    if (window.confirm("Are you sure you wanna delete you account permanently")) {
+      await callAxios("DELETE", "/users");
+      logout();
+    }
+  };
   if (authLoading) {
     return (
       <>
@@ -29,18 +38,24 @@ const Settings = props => {
       <>
         <Navbar private />
         <SettingsComponent>
-          {/* Welcome!
-        {!authLoading && user !== null && user.name}
-        user's Settings
-        <button>logout</button> */}
+          <h1 className="settings-header">Settings</h1>
+
+          <h4
+            style={{ textAlign: "center", cursor: "pointer" }}
+            onClick={deleteAccount}
+            className="delete-account"
+          >
+            Permanently delete your account
+          </h4>
         </SettingsComponent>
       </>
     );
-  } 
+  }
 };
 
 const mapDispatchToProps = {
-  loadUser
+  loadUser,
+  logout
 };
 
 const mapStateToProps = state => ({

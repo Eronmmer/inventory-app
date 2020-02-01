@@ -46,7 +46,7 @@ const Navbar = ( props ) => {
             style={{ display: props.public ? "none" : "inline" }}
             className="settings"
           >
-            <a href="/settings">Settings</a>
+            <Link to="/settings">Settings</Link>
           </li>
           <li
             onClick={handleLogout}

@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
     case REGISTER_FAIL:
        localStorage.removeItem("inventoryAppToken");
       newAlert = [...state.alert];
-      newAlert.push(action.alert);
+      newAlert.unshift(action.alert);
       // console.log(action.payload)
       return {
         ...state,
@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
       localStorage.setItem("inventoryAppToken", action.payload.token)
       // console.log(action.payload);
       newAlert = [...state.alert];
-      newAlert.push(action.alert);
+      newAlert.unshift(action.alert);
       return {
         ...state,
         registerLoginLoading: false,
@@ -79,7 +79,7 @@ export default (state = initialState, action) => {
       };
     case REGISTER_SUCCESS:
       newAlert = [...state.alert];
-      newAlert.push(action.alert);
+      newAlert.unshift(action.alert);
       return {
         ...state,
         registerLoginLoading: false,

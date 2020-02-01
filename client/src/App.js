@@ -12,6 +12,7 @@ import Home from "./components/home/Home";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Company from "./components/pages/Company";
+import Modals from "./components/modals/Modals"
 import Spinner from "./components/layout/Spinner";
 import PrivateRoute from "./routing/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -46,11 +47,9 @@ function App() {
           <Route exact path="/suppliers" component={Suppliers} />
           <Route exact path="/customers" component={Customers} />
 
-          {/* 404 route below */}
           <Route component={NotFound}/>
         </Switch>
-        {/* For the spinner below, make it display: none by default and only show it when you want to process the result of something loading */}
-        {/* <Spinner /> */}
+        <Modals />
       </Router>
     </Provider>
   );

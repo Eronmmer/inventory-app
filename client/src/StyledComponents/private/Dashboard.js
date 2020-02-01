@@ -18,6 +18,11 @@ const DashboardComponent = styled.div`
         width: 25%;
         /* the above is subject to change depending on the width of the actual content which is a grid item */
 
+        a {
+          color: white;
+          text-decoration: none;
+        }
+
         .customers,
         .products,
         .sales,
@@ -26,6 +31,8 @@ const DashboardComponent = styled.div`
           margin-bottom: 3rem;
           padding: 1rem;
           background: #454343;
+          color: white;
+          text-decoration: none;
           cursor: pointer;
         }
       }
@@ -65,12 +72,11 @@ const DashboardComponent = styled.div`
       }
 
       .recent-content-bold {
-        margin-right: .6rem;
+        margin-right: 0.6rem;
       }
 
       .no-recent {
         text-align: center;
-        
       }
     }
   }

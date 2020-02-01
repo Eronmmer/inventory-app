@@ -216,9 +216,9 @@ router.put(
 // Route -------- DELETE /api/auth
 // access -------  Private
 // Desc -------- Delete a user's account
-router.delete("/:userId", authenticator, async (req, res) => {
+router.delete("/", authenticator, async (req, res) => {
   try {
-    let user = await User.findById(req.params.userId);
+    let user = await User.findById(req.user.id);
     if (!user) {
       return res.status(404).json({ msg: "User does not exist!!" });
     }
@@ -227,7 +227,7 @@ router.delete("/:userId", authenticator, async (req, res) => {
       return res.status(401).json({ msg: "Not authorized" });
     }
 
-    user = await User.findByIdAndDelete(req.params.userId);
+    user = await User.findByIdAndDelete(req.user.id);
 
     res.json({ msg: "Account successfully deleted" });
   } catch (err) {
