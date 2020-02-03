@@ -19,11 +19,19 @@ const MainComponent = styled.main`
     margin: 1rem auto;
     padding-left: 1rem;
     padding-right: 1rem;
+
+    @media (max-width: 780px) {
+      font-size: 1.14rem;
+    }
   }
 
   max-width: 1100px;
   margin: auto;
   padding: 0 2rem;
+
+  @media (max-width: 500px) {
+    padding: 0 1rem;
+  }
 
   .first-section {
     padding-top: 4rem;
@@ -33,6 +41,11 @@ const MainComponent = styled.main`
       margin: 0 auto;
       text-align: center;
       color: black;
+
+      @media (max-width: 500px) {
+        font-size: 7rem;
+        margin-top: 1rem;
+      }
     }
 
     .box-paragraphs {
@@ -51,6 +64,10 @@ const MainComponent = styled.main`
         max-width: 560px;
         font-size: 1.2rem;
         font-weight: 500;
+
+        @media (max-width: 780px) {
+          font-size: 1.14rem;
+        }
       }
 
       img {
@@ -72,6 +89,12 @@ const MainComponent = styled.main`
       margin-bottom: 3rem;
       font-size: 1.17rem;
 
+      @media (max-width: 750px) {
+        flex-direction: column;
+        margin-top: 1rem;
+        margin-bottom: 0;
+      }
+
       .opener {
         flex-basis: 23%;
         padding-right: 2.6rem;
@@ -80,6 +103,20 @@ const MainComponent = styled.main`
         font-weight: bold;
         font-size: 1.2rem;
 
+        @media (max-width: 815px) {
+          flex-grow: 1;
+        }
+
+        @media (max-width: 750px) {
+          border: none;
+          border-right: none;
+          width: 80%;
+          margin-bottom: 1.4rem;
+          margin-right: auto;
+          margin-left: auto;
+          padding-right: 0;
+        }
+
         p {
           margin-bottom: 0.5rem;
           cursor: pointer;
@@ -87,12 +124,21 @@ const MainComponent = styled.main`
           align-items: center;
           justify-content: space-between;
 
+          @media (max-width: 750px) {
+           justify-content: space-evenly;
+           text-align: center;
+          }
+
           .dropdown {
             transform: rotate(-90deg);
             width: 1.7rem;
             height: auto;
             filter: invert(15%) sepia(95%) saturate(2659%) hue-rotate(232deg)
               brightness(77%) contrast(87%);
+
+            @media (max-width: 750px) {
+              transform: rotate(0deg);
+            }
           }
         }
       }
@@ -101,9 +147,26 @@ const MainComponent = styled.main`
         flex-basis: 63%;
         font-size: 1.15rem;
 
+        @media (max-width: 815px) {
+          flex-grow: 1;
+          padding-left: 1rem;
+        }
+
+        @media (max-width: 750px) {
+          display: none;
+        }
+
         h3 {
           font-size: 1.6rem;
           margin: 0;
+
+          @media (max-width: 815px) {
+            font-size: 1.3rem;
+
+            & ~ p {
+              margin-top: 0.35rem;
+            }
+          }
         }
       }
     }
@@ -130,6 +193,11 @@ const MainComponent = styled.main`
       /* backface-visibility: hidden; */
       transition: ease-in-out transform 0.5s;
       animation: ${scaleAnimation} 1s ease-in-out infinite;
+
+      @media (max-width: 500px) {
+        margin-top: 1.5rem;
+        padding: .7rem 3rem;
+      }
 
       &:hover {
         animation: none;

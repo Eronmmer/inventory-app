@@ -33,6 +33,8 @@ A React/Redux/Styled-components powered frontend app that sends request to and r
 
 - Display weekly and monthly Sales and purchases on the dashboard along with total profit made during the period.
 
+- Search
+
 - Users should be able to edit their details(change password, name, email, username, company): There's already endpoints for this on the BE but they've not been implemented on the FE
 
 - Remove some lorem ipsums that are still on the landing page.

@@ -9,3 +9,9 @@ body {
   color: #333;
 }
 
+
+@media (max-width: 420px) {
+  html {
+    font-size: 86%;
+  }
+}

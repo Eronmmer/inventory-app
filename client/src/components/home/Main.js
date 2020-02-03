@@ -68,6 +68,20 @@ const Main = () => {
               Management{" "}
               <img className="dropdown" src={dropdown} alt="arrow icon" />
             </FeatureClickParagraph>
+            <FeatureOpenedContent
+              mobileOpenerContent
+              showContent={showFeatureBool("first")}
+            >
+              <h3>Manage your stocks</h3>
+              <p>
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged
+              </p>
+            </FeatureOpenedContent>
 
             <FeatureClickParagraph
               clicked={showFeatureBool("second")}
@@ -76,6 +90,21 @@ const Main = () => {
               Organization{" "}
               <img className="dropdown" src={dropdown} alt="arrow icon" />
             </FeatureClickParagraph>
+            <FeatureOpenedContent
+              mobileOpenerContent
+              showContent={showFeatureBool("second")}
+            >
+              <h3>Organize blah blah</h3>
+              <p>
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged
+              </p>
+            </FeatureOpenedContent>
+
             <FeatureClickParagraph
               clicked={showFeatureBool("third")}
               onClick={() => showOpener("third")}
@@ -84,6 +113,21 @@ const Main = () => {
               <img className="dropdown" src={dropdown} alt="arrow icon" />
             </FeatureClickParagraph>
 
+            <FeatureOpenedContent
+              mobileOpenerContent
+              showContent={showFeatureBool("third")}
+            >
+              <h3>Plan blah blah</h3>
+              <p>
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged
+              </p>
+            </FeatureOpenedContent>
+
             <FeatureClickParagraph
               clicked={showFeatureBool("fourth")}
               onClick={() => showOpener("fourth")}
@@ -91,6 +135,20 @@ const Main = () => {
               Real time analytics{" "}
               <img className="dropdown" src={dropdown} alt="arrow icon" />
             </FeatureClickParagraph>
+            <FeatureOpenedContent
+              mobileOpenerContent
+              showContent={showFeatureBool("fourth")}
+            >
+              <h3>Analytics blah blah</h3>
+              <p>
+                is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged
+              </p>
+            </FeatureOpenedContent>
           </div>
           <div className="opener-content">
             <FeatureOpenedContent showContent={showFeatureBool("first")}>

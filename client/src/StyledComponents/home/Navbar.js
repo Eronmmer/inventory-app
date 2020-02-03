@@ -6,8 +6,14 @@ const NavbarComponent = styled.nav`
   background: #3672a4;
   padding: 0.45rem;
   color: white;
-  box-shadow: 0px 6px 5px 0px rgba(128, 128, 128, 1);  
-        
+  box-shadow: 0px 6px 5px 0px rgba(128, 128, 128, 1);
+
+  @media screen and (max-width: 360px) {
+    & ~ div {
+      padding-top: 6rem;
+    }
+  }
+
   ul {
     list-style: none;
     margin: 0;
@@ -18,8 +24,20 @@ const NavbarComponent = styled.nav`
     padding-left: 2rem;
     padding-right: 2rem;
 
+    @media screen and (max-width: 500px) {
+      padding-left: 1rem;
+    }
+
+    @media screen and (max-width: 360px) {
+      flex-direction: column;
+    }
+
     .left {
       flex-basis: 30%;
+
+      @media screen and (max-width: 360px) {
+        margin-bottom: 1rem;
+      }
 
       .brand-name {
         a {
@@ -49,6 +67,20 @@ const NavbarComponent = styled.nav`
       flex-basis: 20%;
       justify-content: space-around;
 
+      @media screen and (max-width: 1120px) {
+        flex-basis: 30%;
+        justify-content: space-between;
+      }
+
+      @media screen and (max-width: 780px) {
+        flex-basis: 50%;
+      }
+
+      @media screen and (max-width: 400px) {
+        flex-basis: 57%;
+        justify-content: flex-end;
+      }
+
       .about,
       .login,
       .register {
@@ -72,14 +104,14 @@ const NavbarComponent = styled.nav`
         font-weight: bold;
 
         &:hover {
-          transform: scale(1.045)
+          transform: scale(1.045);
         }
 
-        ${props => props.public &&
+        ${props =>
+          props.public &&
           css`
             display: none;
-          `
-        }
+          `}
       }
 
       .register a {
@@ -87,6 +119,10 @@ const NavbarComponent = styled.nav`
         border-radius: 1.3rem;
         padding: 0.5rem 1.7rem;
         font-weight: bold;
+
+        @media screen and (max-width: 500px) {
+          border: none;
+        }
       }
     }
   }

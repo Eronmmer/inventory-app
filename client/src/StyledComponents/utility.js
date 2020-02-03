@@ -5,6 +5,14 @@ export const HeaderOne = styled.h1`
   text-align: center;
   font-size: 2.5rem;
 
+  @media (max-width: 780px) {
+    font-size: 2.25rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 2rem !important;
+  }
+
   ${props =>
     props.home &&
     css`
@@ -14,12 +22,22 @@ export const HeaderOne = styled.h1`
       margin-right: auto;
       margin-top: 0;
       max-width: 650px;
+
+      @media (max-width: 780px) {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
     `}
 `;
 
 export const HeaderTwo = styled.h2`
   font-size: 2rem;
   margin-top: 2rem;
+
+  @media (max-width: 500px) {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
 
   ${props =>
     props.home &&
@@ -60,6 +78,21 @@ export const FeatureOpenedContent = styled.div`
       display: block;
       opacity: 1;
     `}
+
+  ${props =>
+    props.mobileOpenerContent &&
+  css`
+    & h3 {
+      display: none;
+    }
+    & p {
+      font-size: 1rem;
+      font-weight: normal;
+    }
+      @media (min-width: 751px) {
+        display: none;
+      }
+    `}
 `;
 
 // Form component
@@ -68,6 +101,11 @@ export const FormComponent = styled.form`
   margin: 2rem auto;
   overflow: hidden;
   padding: 0 2rem;
+
+  @media (max-width: 500px) {
+    padding: 0 1rem;
+  }
+
   input {
     margin: 1.2rem 0;
   }
@@ -85,10 +123,12 @@ export const FormComponent = styled.form`
   select,
   textarea {
     display: block;
-    width: 100%;
+    width: 92%;
     padding: 0.4rem;
     font-size: 1.2rem;
     border: 1px solid #ccc;
+    margin-left: auto;
+    margin-right: auto;
     /* The above is subject to change */
 
     ${props =>
@@ -173,6 +213,10 @@ export const AllStuff = styled.div`
   .all-stuff-headers {
     text-align: center;
     margin: 0 auto;
+  }
+
+  @media screen and (max-width: 500px) {
+    margin: 0 0 3rem 0;
   }
 
   .all-stuff-content:not(:last-child) {

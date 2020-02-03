@@ -50,7 +50,7 @@ const Navbar = ( props ) => {
           </li>
           <li
             onClick={handleLogout}
-            style={{ display: props.public ? "none" : "inline" }}
+            style={{ display: props.public ? "none" : "inline", paddingLeft: "1rem" }}
             className="logout"
           >
             <a href="#">Logout</a>

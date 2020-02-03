@@ -14,7 +14,6 @@ connectDb();
 app.use(logger);
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
-// The above two work as body parsers
 
 // Badass welcome message 😈
 app.get("/", (req, res) => {
@@ -36,7 +35,7 @@ app.use((req, res, next) => {
   res
     .status(404)
     .send(
-      "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a know route."
+      "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a known route."
     );
 });
 

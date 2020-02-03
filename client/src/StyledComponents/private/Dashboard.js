@@ -8,6 +8,11 @@ const DashboardComponent = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr;
     min-height: 100vh;
+
+    @media screen and (max-width: 750px) {
+      display: flex;
+      flex-direction: column;
+    }
     .left {
       background: #323237;
       color: white;
@@ -17,6 +22,17 @@ const DashboardComponent = styled.div`
         position: fixed;
         width: 25%;
         /* the above is subject to change depending on the width of the actual content which is a grid item */
+
+        @media screen and (max-width: 750px) {
+          width: 100%;
+          background: #454343;
+
+          .left-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+          }
+        }
 
         a {
           color: white;
@@ -34,7 +50,18 @@ const DashboardComponent = styled.div`
           color: white;
           text-decoration: none;
           cursor: pointer;
+
+          @media screen and (max-width: 750px) {
+            margin-bottom: 0.7rem;
+            padding: 0.5rem;
+            text-align: center;
+            background: none;
+          }
         }
+      }
+
+      @media screen and (max-width: 750px) {
+        padding: 0;
       }
     }
 
@@ -48,6 +75,10 @@ const DashboardComponent = styled.div`
         p {
           cursor: pointer;
         }
+      }
+
+      @media screen and (max-width: 750px) {
+        margin-top: 3rem;
       }
     }
 
