@@ -1,5 +1,5 @@
 {
   "env": {
-    "MONGO_URI": "@mongoURI"
+    "MONGO_URI": "@mongouri"
   }
 }
