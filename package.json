@@ -9,7 +9,8 @@
     "server": "nodemon index.js --ignore-client",
     "client": "npm start --prefix client",
     "client-install": "npm install --prefix client",
-    "dev": "concurrently \"npm run server \" \"npm run client\""
+    "dev": "concurrently \"npm run server \" \"npm run client\"",
+    "build": "node index.js"
   },
   "keywords": [],
   "author": "",
