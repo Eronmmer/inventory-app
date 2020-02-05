@@ -25,11 +25,12 @@ A React/Redux/Styled-components powered frontend app that sends request to and r
 
 - `npm install`
 
-- Go to the `default.json` file in the `config` directory and edit your mongoURI and jwt secret. The latter might not be necessary. Run `npm run server` to start the Express API, run `npm run client` to run the React Frontend and `npm run dev` to run both of them concurrently.
+- Go to the `sample.env` file and follow the instructions there. Run `npm run server` to start the Express API, run `npm run client` to run the React Frontend and `npm run dev` to run both of them concurrently.
 
 ## Todo
 
 - Frontend Responsiveness: I used just styled components. So, I'll make out time to ensure the app is fully responsive soon.
+  >update: done
 
 - Display weekly and monthly Sales and purchases on the dashboard along with total profit made during the period.
 
@@ -40,6 +41,7 @@ A React/Redux/Styled-components powered frontend app that sends request to and r
 - Remove some lorem ipsums that are still on the landing page.
 
 - Deploy to Heroku or Zeit Now
+  >update: done
 
 ## API docs
 

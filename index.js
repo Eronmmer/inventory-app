@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const logger = require("./middleware/logger");
 const connectDb = require("./config/db");
@@ -16,9 +17,11 @@ app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 
 // Badass welcome message 😈
-app.get("/", (req, res) => {
-  res.send("Hey bitch, welcome to my API 😈😈");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hey bitch, welcome to my API 😈😈");
+// });
+
+// removing the above cause I'm ready to deploy
 
 // Define all your routes
 app.use("/api/users", require("./routes/users"));
@@ -30,15 +33,6 @@ app.use("/api/products", require("./routes/products"));
 app.use("/api/purchases", require("./routes/purchases"));
 app.use("/api/allUsers", require("./routes/allUsers"));
 
-// 404. For the sake of fun haha
-app.use((req, res, next) => {
-  res
-    .status(404)
-    .send(
-      "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a known route."
-    );
-});
-
 // Serve the static bundled React app in production mode
 /* Make sure you serve static files after defining your routes */
 if (process.env.NODE_ENV === "production") {
@@ -49,6 +43,15 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   );
 }
+
+// 404. For the sake of fun haha
+app.use((req, res, next) => {
+  res
+    .status(404)
+    .send(
+      "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a known route."
+    );
+});
 
 // Listen
 app.listen(PORT, () => {
