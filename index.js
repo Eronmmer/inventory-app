@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 const express = require("express");
 const logger = require("./middleware/logger");
 const connectDb = require("./config/db");
@@ -52,6 +52,12 @@ if (process.env.NODE_ENV === "production") {
 //       "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a known route."
 //     );
 // });
+
+// error handler middleware
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Server Error!");
+});
 
 // Listen
 app.listen(PORT, () => {
