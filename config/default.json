@@ -1,4 +1,3 @@
 {
-  "jwtSecret": "secret",
-  "mongoURI": "mongodb+srv://erons:NOV42008@cluster0-ewatv.mongodb.net/test?retryWrites=true&w=majority"
+  "jwtSecret": "secret"
 }

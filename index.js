@@ -1,4 +1,4 @@
-// require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const logger = require("./middleware/logger");
 const connectDb = require("./config/db");
