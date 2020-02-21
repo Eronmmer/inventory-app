@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // 404. For the sake of fun haha
-app.use((req, res, next) => {
+app.use((req, res) => {
   res
     .status(404)
     .send(
