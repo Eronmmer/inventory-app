@@ -14,7 +14,7 @@ let alertArr = [...initialState.salesAlert]
 export default ( state = initialState, action ) => {
   switch (action.type) {
     case GET_SALES:
-      console.log(action.payload);
+      // console.log(action.payload);
       action.payload.forEach((elem, index) => {
         elem.history.forEach((e, i) => {
           salesArr.push({
@@ -33,12 +33,12 @@ export default ( state = initialState, action ) => {
         sales: salesArr
       };
     case SALES_ERROR:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state
       };
     case ADD_SALES:
-      console.log(action.payload);
+      // console.log(action.payload);
       alertArr = [...state.salesAlert];
       alertArr.unshift(action.payload.alert);
       return {
@@ -46,7 +46,7 @@ export default ( state = initialState, action ) => {
         salesAlert: alertArr
       };
     case ADD_SALES_ERROR:
-      console.log(action.payload);
+      // console.log(action.payload);
       alertArr = [...state.salesAlert];
       alertArr.unshift(action.payload.alert);
       return {

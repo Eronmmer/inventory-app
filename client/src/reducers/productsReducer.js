@@ -13,7 +13,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
-      console.log(action.payload);
       return {
         ...state,
         productsDashboard: action.payload
@@ -21,7 +20,6 @@ export default (state = initialState, action) => {
         products: action.payload
       };
     case PRODUCTS_ERROR:
-      console.log(action.payload);
       return {
         ...state
       };

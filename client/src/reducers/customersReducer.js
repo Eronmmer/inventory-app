@@ -13,14 +13,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CUSTOMERS:
-      console.log(action.payload);
       return {
         ...state,
         customersDashboard: action.payload.slice( 0, 5 ),
         customers: action.payload
       };
     case CUSTOMERS_ERROR:
-      console.log(action.payload);
       return {
         ...state
       };

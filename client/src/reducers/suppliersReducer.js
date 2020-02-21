@@ -13,7 +13,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_SUPPLIERS:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         suppliersDashboard: action.payload
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
         suppliers: action.payload
       };
     case SUPPLIERS_ERROR:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state
       };

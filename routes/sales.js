@@ -180,7 +180,7 @@ router.put("/:saleId", authenticator, async (req, res) => {
       });
       const updatedHistory = [...sale.history];
       updatedHistory.push(...history);
-      console.log(...history);
+      // console.log(...history);
       saleField.history = updatedHistory;
     }
     // console.log(saleField)
@@ -206,10 +206,10 @@ router.put("/:saleId", authenticator, async (req, res) => {
     let productAmountLeft = requiredProduct.amountAvailable;
     let productAmountSold = history[history.length - 1].numberSold;
     let finalAmountAvailable;
-    console.log(productAmountLeft, productAmountSold)
+    // console.log(productAmountLeft, productAmountSold)
     if (productAmountLeft == productAmountSold) {
       // callAxios("DELETE", `/products/${id}`);
-      console.log(id)
+      // console.log(id)
       let product = await Product.findById(id);
       // if (!product) {
       //   return res.status(404).json({ msg: "Product does not exist!" });
