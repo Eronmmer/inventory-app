@@ -5,7 +5,7 @@ const port = process.env.PORT || 3500;
 const host = process.env.HOST || os.hostname();
 
 const instance = axios.create({
-  baseURL: `http://${host}:${port}//api/`
+  baseURL: "/api/"
 });
 
 module.exports = instance;
