@@ -45,13 +45,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // 404. For the sake of fun haha
-app.use((req, res) => {
-  res
-    .status(404)
-    .send(
-      "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a known route."
-    );
-});
+// app.use((req, res) => {
+//   res
+//     .status(404)
+//     .send(
+//       "Sorry douchebag, I can't find nothing here. Do well to find your way home or to a known route."
+//     );
+// });
 
 // Listen
 app.listen(PORT, () => {
