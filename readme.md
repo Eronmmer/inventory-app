@@ -1,6 +1,6 @@
 # Inventory App
 
-A MERN stack application that business owners(retailers, wholesalers etc) can use to keep detailed track of their activities(sales, purchases) and other stuff. I built this application while strengthening my express/react/redux skills. So if you eventually decide to peruse my code, please don't gnash your teeth if you discover funny stuff. 😂
+A MERN stack application that business owners(retailers, wholesalers etc) can use to keep detailed track of their activities(sales, purchases) and other stuff. I built this application while learning express/react/redux.
 
 <!-- Add other stuff here later -->
 
